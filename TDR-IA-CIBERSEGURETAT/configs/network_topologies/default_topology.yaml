@@ -1,0 +1,74 @@
+# Simulated network topology definition (No real infrastructure)
+network_name: "Corporate_Enterprise_Simulation"
+
+subnets:
+  - id: "subnet_dmz"
+    cidr: "192.168.1.0/24"
+    description: "Public-facing DMZ containing web and mail servers"
+  - id: "subnet_internal"
+    cidr: "10.0.1.0/24"
+    description: "Internal corporate network with employee workstations"
+  - id: "subnet_database"
+    cidr: "10.0.2.0/24"
+    description: "Isolated database subnet holding sensitive research data"
+
+nodes:
+  - id: "web_server_01"
+    ip: "192.168.1.10"
+    subnet: "subnet_dmz"
+    os: "Linux"
+    role: "web_server"
+    is_compromised: false
+    services:
+      - name: "http"
+        port: 80
+        vulnerabilities:
+          - id: "CVE-2023-XXXX"
+            severity: "HIGH"
+            exploit_complexity: "LOW"
+      - name: "ssh"
+        port: 22
+        vulnerabilities: []
+
+  - id: "workstation_01"
+    ip: "10.0.1.20"
+    subnet: "subnet_internal"
+    os: "Windows"
+    role: "workstation"
+    is_compromised: false
+    services:
+      - name: "smb"
+        port: 445
+        vulnerabilities:
+          - id: "CVE-2020-0796"
+            severity: "CRITICAL"
+            exploit_complexity: "MEDIUM"
+
+  - id: "db_server_01"
+    ip: "10.0.2.50"
+    subnet: "subnet_database"
+    os: "Linux"
+    role: "database"
+    is_compromised: false
+    has_target_data: true
+    services:
+      - name: "postgres"
+        port: 5432
+        vulnerabilities:
+          - id: "CVE-2022-XXXX"
+            severity: "MEDIUM"
+            exploit_complexity: "HIGH"
+
+firewall_rules:
+  - from: "external"
+    to: "subnet_dmz"
+    ports: [80]
+    action: "ALLOW"
+  - from: "subnet_dmz"
+    to: "subnet_internal"
+    ports: [445, 22]
+    action: "ALLOW"
+  - from: "subnet_internal"
+    to: "subnet_database"
+    ports: [5432]
+    action: "ALLOW"
