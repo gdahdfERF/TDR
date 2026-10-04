@@ -1,0 +1,11 @@
+run_id,winner,attack_success,detected,false_positive,total_turns,detection_turn,containment_turn,final_suspicion,final_evidence
+1,Attacker,True,False,False,3,,,1.0,0.449
+2,Defender,False,True,False,4,3,4,0.709,0.851
+3,Defender,False,True,False,4,3,4,0.649,0.821
+4,Attacker,True,False,False,5,,,0.907,0.405
+5,Attacker,True,False,False,3,,,1.0,0.467
+6,Defender,False,True,False,4,3,4,0.707,0.823
+7,Attacker,True,False,False,3,,,1.0,0.45
+8,Attacker,True,False,False,4,,,1.0,0.545
+9,Attacker,True,False,False,4,,,1.0,0.501
+10,Attacker,True,False,False,3,,,1.0,0.448
